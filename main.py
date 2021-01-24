@@ -11,8 +11,7 @@ from Predictor import Predictor
 
 gd.predictor = Predictor(gd.data_columns)
 
-if not gd.is_first_run:
-    gd.load_data()
+gd.load_data()
 
 
 def play_game(player_white="heuristic", player_black="heuristic"):
@@ -34,7 +33,6 @@ def play_game(player_white="heuristic", player_black="heuristic"):
 
             if gd.show_display:
                 display.update(board.fen())
-                print("Updated")
 
             if board.is_game_over():
                 game_over = True
@@ -46,7 +44,7 @@ def play_game(player_white="heuristic", player_black="heuristic"):
 if gd.show_display:
     display.start()
 
-for _ in range(1000):
+for _ in range(100):
     (result, game_df) = play_game('ai', 'heuristic')
     gd.results.append(result)
 
@@ -67,7 +65,22 @@ for _ in range(1000):
     print("If you want to stop the training, stop the execution now")
     time.sleep(5)
 
-print(gd.results)
+basic_win = 0
+basic_lost = 0
+draw_count = 0
+for i in range(len(gd.results)):
+    if gd.results[i] == '1/2-1/2':
+        draw_count += 1
+    elif i % 2 == 0 and gd.results[i] == '0-1':
+        basic_win += 1
+    elif i % 2 != 0 and gd.results[i] == '1-0':
+        basic_win += 1
+    else:
+        basic_lost += 1
+
+print(basic_win, basic_lost, draw_count)
+
+(result, game_df) = play_game('ai_minmax', 'heuristic')
 
 if gd.show_display:
     display.terminate()

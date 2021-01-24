@@ -4,6 +4,8 @@ import chess
 import pickle
 import pandas as pd
 
+import os.path
+
 
 class GlobalData:
     data_columns = ['h1', 'h2', 'h3', 'h4', 'H']
@@ -15,8 +17,7 @@ class GlobalData:
     toplevel_evaluated = dict()
 
     heuristic_depth = 3
-    show_display = False
-    is_first_run = False
+    show_display = True
 
     predictor = None
 
@@ -31,12 +32,13 @@ class GlobalData:
                 [GlobalData.evaluated, GlobalData.toplevel_evaluated, GlobalData.games_data, GlobalData.results], f)
 
     @staticmethod
-    def load_data(model=True):
-        if model:
+    def load_data():
+        if os.path.exists('data/depth'+str(GlobalData.heuristic_depth)+'/model'):
             GlobalData.predictor.load_model()
             print("Model loaded correctly")
 
-        with open('data/depth'+str(GlobalData.heuristic_depth)+'/othervars.pkl', 'rb') as f:
-            GlobalData.evaluated, GlobalData.toplevel_evaluated, GlobalData.games_data, GlobalData.results = pickle.load(
-                f)
-        print("Vars loaded correctly")
+        if os.path.exists('data/depth'+str(GlobalData.heuristic_depth)+'/othervars.pkl'):
+            with open('data/depth'+str(GlobalData.heuristic_depth)+'/othervars.pkl', 'rb') as f:
+                GlobalData.evaluated, GlobalData.toplevel_evaluated, GlobalData.games_data, GlobalData.results = pickle.load(
+                    f)
+            print("Vars loaded correctly")
