@@ -38,8 +38,8 @@ class Predictor:
     def build_model(self, input_shape):
         model = keras.Sequential([
             layers.Dense(256, activation='relu', input_shape=input_shape),
-            layers.Dense(256, activation='relu', input_shape=input_shape),
-            layers.Dense(256, activation='relu', input_shape=input_shape),
+            layers.Dense(256, activation='relu'),
+            layers.Dense(256, activation='relu'),
             layers.Dropout(0.1),
             layers.Dense(64, activation='relu'),
             layers.Dense(1)

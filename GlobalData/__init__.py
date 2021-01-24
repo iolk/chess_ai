@@ -6,8 +6,6 @@ import pandas as pd
 
 
 class GlobalData:
-    # data_columns = ['color', 'h1', 'h2', 'h3', 'h4', 'H']
-    # input_columns = ['color', 'h1', 'h2', 'h3', 'h4']
     data_columns = ['h1', 'h2', 'h3', 'h4', 'H']
     input_columns = ['h1', 'h2', 'h3', 'h4']
     to_normalize_cols = ['h1', 'h2', 'h3', 'h4']
@@ -17,15 +15,12 @@ class GlobalData:
     toplevel_evaluated = dict()
 
     heuristic_depth = 3
-    show_display = True
-    is_first_run = True
+    show_display = False
+    is_first_run = False
 
     predictor = None
 
     games_data = pd.DataFrame(columns=data_columns)
-    # toplevel_eval = [dict(), dict()]
-    # toplevel_eval[chess.WHITE] = dict()
-    # toplevel_eval[chess.BLACK] = dict()
 
     @staticmethod
     def save_data():

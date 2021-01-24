@@ -34,6 +34,7 @@ def play_game(player_white="heuristic", player_black="heuristic"):
 
             if gd.show_display:
                 display.update(board.fen())
+                print("Updated")
 
             if board.is_game_over():
                 game_over = True
